@@ -77,8 +77,9 @@ $authDir = if ($env:XDG_DATA_HOME) {
     Write-Verbose "  Using XDG_DATA_HOME: $env:XDG_DATA_HOME"
     Join-Path $env:XDG_DATA_HOME "opencode"
 } else {
-    Write-Verbose "  XDG_DATA_HOME not set, falling back to LOCALAPPDATA: $env:LOCALAPPDATA"
-    Join-Path $env:LOCALAPPDATA "opencode"
+    $defaultDataDir = Join-Path $env:USERPROFILE (Join-Path ".local" (Join-Path "share" "opencode"))
+    Write-Verbose "  XDG_DATA_HOME not set, falling back to: $defaultDataDir"
+    $defaultDataDir
 }
 
 Write-Verbose "  Auth directory: $authDir"
